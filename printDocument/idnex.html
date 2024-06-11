@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Редактор текста</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    #editor {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <textarea id="editor"></textarea>
+
+  <script>
+    window.onload = function() {
+      var editor = document.getElementById('editor');
+
+      // Дополнительные стили для текстового поля (опционально)
+      editor.style.fontFamily = 'Arial, sans-serif';
+      editor.style.fontSize = '16px';
+
+      // Добавляем пример текста в поле
+      editor.value = 'Пример текста';
+
+      // Функция для печати содержимого поля
+      function printDocument() {
+        window.print();
+      }
+
+      // Добавляем кнопку печати
+      var printButton = document.createElement('button');
+      printButton.textContent = 'Печать';
+      printButton.onclick = printDocument;
+      document.body.appendChild(printButton);
+    };
+  </script>
+</body>
+</html>

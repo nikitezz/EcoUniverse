@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/6199/6199438.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <title>Интерактивная карта</title>
+    <style>
+        #panorama-container {
+            position: relative;
+            width: 1350px;
+            height: 620px;
+            margin: 0 auto;
+            overflow: hidden;
+            cursor: move;
+            /* fallback if grab cursor is unsupported */
+            cursor: grab;
+            cursor: -moz-grab;
+            cursor: -webkit-grab;
+        }
+
+        #panorama-container:active {
+            cursor: grabbing;
+            cursor: -moz-grabbing;
+            cursor: -webkit-grabbing;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="map"></div>    
+        <img src="img/info 1.png" alt="" class="info" id="info">
+        <a href="/index.html"><button class="button">Назад</button></a>
+        <button class="button btn2" id="filtr">Фильтр</button>
+        <button class="button btn3" id="btn-route">Маршрут</button>
+        <!-- Модальное окно - Фильтр -->
+        <div class="modal-filter" id="modal">
+            <img src="img/close (1) 2.png" alt="" class="close-filter" id="close">
+            <div class="btns">
+                
+                <button class="btnFilter" id="museums">
+                    Музеи
+                </button>
+                <button class="btnFilter" id="reserve">
+                    Заповедники
+                </button>
+                
+                <button class="btnFilter btnDanger" id="cancelFilter">
+                    Отменить фильтр
+                </button>
+            </div>
+        </div>
+        <!-- Построение маршрутов -->
+        <div class="block-information route" id="block-route" >
+            <div class="form-inner">
+                <img src="img/close (1) 2.png" alt="" class="close-filter" id="close-route">
+                <label for="start">Начало пути:</label><br>
+                <input type="text" placeholder="52.463628" name="start" id="start-route-lat" required autocomplete="off">
+                <input type="text" placeholder="31.027145" name="start" id="start-route-lng" required autocomplete="off">
+                <input type="submit" value="Использовать моё местоположение:" style="cursor: pointer;  width: 280px;" id="mygeo">
+                <label for="end" class="text">Конец пути:</label><br>
+                <input type="text" placeholder="54.872358" name="end" id="end-route-lat" required autocomplete="off">   
+                <input type="text" placeholder="31.027145" name="end" id="end-route-lng" required autocomplete="off">   
+                <p class="text-danger-route" style="margin-top: -20px;">Вы можете выбрать на карте место, куда хотите построить маршрут</p>
+                <input type="submit" value="Построить" style="cursor: pointer;margin-top: -10px;" id="submit"><br>
+
+            </div>         
+        </div>
+        <!-- Модальное окно - информация о метках -->
+        <div class="block-information" id="block-info">
+            <img src="img/close (1) 2.png" alt="" class="close-filter" id="close2">
+            <div class="markers">
+                <div class="marker1">
+                    <img src="./img/marker/pink.png" alt="" class="markerImg">
+                    <p class="mark">Заповедники</p>
+                </div>
+                <div class="marker2">
+                    <img src="./img/marker/map-marker-icon.png" alt="" class="markerImg img2">
+                    <p class="mark">Музеи</p>
+                </div>
+               
+            </div>
+        </div>
+
+        <!-- Информация о музеях (ГОТОВО)-->
+        <div class="block-modal-museums">
+            <div class="block-modal1" id="block-modal1-museums">
+                <img src="./img/close (1) 2.png" alt="" class="close-filter" id="close1-museums">
+                <div id="panorama-container"></div>
+            </div>
+           
+        </div>
+        <!-- Заповедники (ГОТОВО)-->
+        <div class="block-modal-reserve">
+            <div class="block-modal1" id="block-modal1-reserve">
+                <img src="./img/close (1) 2.png" alt="" class="close-filter" id="close1-reserve">
+                <p class="title-object">ПРИПЯТСКИЙ НАЦИОНАЛЬНЫЙ ПАРК</p>
+                <img src="./img/Reserve/1.jpg" alt="" class="img-culture">
+                <p class="content-modal" style="font-size: 18px;">Припятский национальный парк (белор. Прыпяцкi нацыянальны парк) — национальный парк на юге Белоруссии, подчинён Управлению делами Президента Республики Беларусь. Припятский национальный парк расположен на западе Гомельской области в 350 км восточнее Бреста и в 250 км южнее Минска, к югу от трассы Брест — Брянск. В 1969 году сперва был создан Припятский государственный ландшафтно-гидрологический заповедник, в 1996 году преобразованный в национальный парк. Площадь заповедника, а позже национального парка, увеличивалась, сегодня она составляет 188 485 га. Южная часть его представлена особо охраняемой природной территорией площадью 85 841 га. Администрация национального парка находится в агрогородке Лясковичи.</p>
+            </div>
+            <div class="block-modal1" id="block-modal2-reserve">
+                <img src="./img/close (1) 2.png" alt="" class="close-filter" id="close2-reserve">
+                <p class="title-object">Республиканский биологический заказник «Днепро-Сожский»</p>
+                <img src="./img/Reserve/2.jpg" alt="" class="img-culture">
+                <p class="content-modal" style="font-size: 18px;">Республиканский биологический заказник «Днепро-Сожский» — национальный заказник общей площадью 14 556 гектар, находящийся на юго-востоке Белоруссии в Лоевском районе Гомельской области между реками Днепр и Сож. Заказник был образован 5 августа 1999 года постановлением Совета Министров Республики Беларусь в целях «сохранения ценных лесных формаций и луговых сообществ с комплексами редких и исчезающих видов растений и животных, занесенных в Красную книгу Республики Беларусь». С 2005 года работает государственное учреждение «Республиканский биологический заказник «Днепро-Сожский». Территория заказника на 80 % занята лесами, она является ареалом 140 видов птиц, в заказнике произрастает более 660 видов растений. </p>
+            </div>
+            <div class="block-modal1" id="block-modal3-reserve">
+                <img src="./img/close (1) 2.png" alt="" class="close-filter" id="close3-reserve">
+                <p class="title-object" style="font-size: 18px;">Полесский государственный радиационно-экологический заповедник</p>
+                <img src="./img/Reserve/3.jpg" alt="" class="img-culture">
+                <p class="content-modal" style="font-size: 15px;">Полесский государственный радиационно-экологический заповедник (белор. Палескі дзяржаўны радыяцыйна-экалагічны запаведнік) (акроним: ПГРЭЗ) — крупнейший заповедник Белоруссии и единственный в мире радиационно-экологический заповедник. Заповедник занимает 215 тысяч га на территории трёх наиболее пострадавших от аварии на Чернобыльской АЭС районов Гомельской области — Брагинского, Наровлянского и Хойникского. Северо-западнее заповедника расположен национальный парк Припятский. Южнее — украинская часть Зоны отчуждения Чернобыльской АЭС. Заповедник был организован 18 июля 1988 года в белорусской части зоны отчуждения Чернобыльской АЭС. На территории находятся 96 покинутых населённых пунктов, где до аварии и эвакуации в 1986 году проживало более 22 тысяч жителей. По состоянию на 2009 год ежегодные затраты на заповедник составляли около 4 млн долларов США.</p>
+            </div>
+        </div>
+       
+        
+        <button id="MyGeolocation" title="Определить моё местоположение!"></button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="js/panorama.js"></script>
+    <script src="js/script.js"></script>
+    
+</body>
+</html>

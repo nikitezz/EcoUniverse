@@ -1,0 +1,28 @@
+body{
+  /* background-image: url('https://mass-images.pro/files/preview/3/11/e9022048439ba3c29b3b391664cf1765.jpg?1710328933126'); */
+  background-color: #444;
+}
+.card-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  max-width: 1420px;
+  margin-left: 50px;
+}
+
+table{
+  text-align: center;
+  margin-top: 10px;
+  max-width: 1420px;
+  margin-left: 50px;
+}
+td{
+  vertical-align: middle;
+}
+th{
+  vertical-align: middle;
+}
+img:hover{
+  cursor: pointer;
+}

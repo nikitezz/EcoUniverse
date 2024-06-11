@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Административная страница</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/6199/6199438.png" type="image/x-icon">
+
+  <script>
+    function checkPassword(event) {
+      event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+      
+      var password = document.getElementById("password").value;
+      var correctPassword = "19732384"; // Пароль, который нужно ввести для входа
+
+      if (password === correctPassword) {
+        window.location.href = "admin-page01.html"; // Перенаправление на страницу администратора
+      } else {
+        alert("Неверный пароль. Доступ запрещен.");
+      }
+    }
+  </script>
+</head>
+<body>
+    <div class="container">
+        <form class="form">
+            <span class="title">Введите пароль</span>
+            <p class="description">Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing velit quis. Duis tempor incididunt dolore.</p>
+            <div>
+              <input placeholder="Enter your password" type="password" name="password" id="password" required>
+              <button type="submit" onclick="checkPassword(event)">Войти</button>
+            </div>
+          </form>
+    </div>
+</body>
+</html>
